@@ -44,10 +44,11 @@ export class TableController {
     @Get('qrcode')
     async getPDF(
         @Response() res: ExpressResponse,
-        @Query('userId') userId: string
+        @Query('userId') userId: string,
+        @Query('origin') origin: string
     ) {
-        if (!userId)
+        if (!userId || !origin)
             throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-        return await this.tableService.getPDF(res, userId);
+        return await this.tableService.getPDF({ res, userId, origin });
     }
 }

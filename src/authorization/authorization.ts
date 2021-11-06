@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import md5 from 'md5';
+import * as md5 from 'md5';
 
 type props = {
     salt: string;

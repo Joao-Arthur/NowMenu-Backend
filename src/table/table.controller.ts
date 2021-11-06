@@ -6,8 +6,13 @@ import {
     Headers,
     HttpCode,
     HttpStatus,
-    Get
+    Get,
+    Header,
+    Response,
+    Query,
+    HttpException
 } from '@nestjs/common';
+import { Response as ExpressResponse } from 'express';
 import { TableService } from './table.service';
 import { CreateTableDTO } from './table.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -33,5 +38,16 @@ export class TableController {
     async getTables(@Headers('authorization') authorization) {
         const payload = getJWTPayload(authorization);
         return await this.tableService.getTables(payload);
+    }
+
+    @Header('content-type', 'application/pdf')
+    @Get('qrcode')
+    async getPDF(
+        @Response() res: ExpressResponse,
+        @Query('userId') userId: string
+    ) {
+        if (!userId)
+            throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+        return await this.tableService.getPDF(res, userId);
     }
 }

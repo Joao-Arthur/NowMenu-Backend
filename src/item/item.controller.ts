@@ -5,7 +5,8 @@ import {
     UseGuards,
     Headers,
     HttpCode,
-    HttpStatus
+    HttpStatus,
+    Get
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDTO } from './item.dto';
@@ -25,5 +26,12 @@ export class ItemController {
     ) {
         const payload = getJWTPayload(authorization);
         await this.itemService.createMenu({ items, payload });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    async getMenu(@Headers('authorization') authorization) {
+        const payload = getJWTPayload(authorization);
+        return await this.itemService.getMenu(payload);
     }
 }

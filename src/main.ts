@@ -15,4 +15,13 @@ bootstrap();
  * TODOS
  * cadastro de tables -> userid
  * cadastro de orders -> tableid e userid se possível por conveniencia
+ * get menu
+ *  - logado
+ *  - deslogado
+ * get tables
+ * post tables
+ * delete tables
+ * update tables
+ * get orders
+ *
  */

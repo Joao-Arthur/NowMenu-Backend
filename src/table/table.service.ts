@@ -5,7 +5,7 @@ import { payloadType } from '../auth/getJWTPayload';
 import { CreateTableDTO } from './table.dto';
 import { Table, TableDocument } from './table.entity';
 
-type createMenuType = {
+type createTableType = {
     tables: CreateTableDTO[];
     payload: payloadType;
 };
@@ -13,16 +13,20 @@ type createMenuType = {
 @Injectable()
 export class TableService {
     constructor(
-        @InjectModel(Table.name) private itemModel: Model<TableDocument>
+        @InjectModel(Table.name) private tableModel: Model<TableDocument>
     ) {}
 
-    async createTables({ tables, payload }: createMenuType) {
-        for (const item of tables) {
-            const createdTable = new this.itemModel({
-                ...item,
+    async createTables({ tables, payload }: createTableType) {
+        for (const table of tables) {
+            const createdTable = new this.tableModel({
+                ...table,
                 userId: payload.id
             });
             await createdTable.save();
         }
+    }
+
+    async getTables(payload: payloadType) {
+        return this.tableModel.find({ userId: payload.id });
     }
 }

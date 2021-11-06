@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TableModule } from '../table/table.module';
 import { ItemModule } from '../item/items.module';
 import { UserModule } from '../user/user.module';
 import { AppController } from './app.controller';
@@ -14,7 +15,8 @@ import { AppService } from './app.service';
             useUnifiedTopology: true
         }),
         UserModule,
-        ItemModule
+        ItemModule,
+        TableModule
     ],
     controllers: [AppController],
     providers: [AppService]

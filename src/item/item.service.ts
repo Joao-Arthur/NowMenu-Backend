@@ -25,4 +25,8 @@ export class ItemService {
             await createdItem.save();
         }
     }
+
+    async getMenu(payload: payloadType) {
+        return this.itemModel.find({ userId: payload.id });
+    }
 }

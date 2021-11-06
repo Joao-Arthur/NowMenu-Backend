@@ -12,14 +12,7 @@ async function bootstrap() {
 bootstrap();
 
 /**
- *
- * todo do projeto
- * jwt token
- * cadastro de items -> userid
+ * TODOS
  * cadastro de tables -> userid
  * cadastro de orders -> tableid e userid se possível por conveniencia
- *
- *
- *
- *
  */

@@ -11,10 +11,7 @@ async function bootstrap() {
 
 bootstrap();
 
-/**
- * TODOS
- * cadastro de orders -> tableid e userid se possível por conveniencia
+/** TODO
  * delete tables
  * update tables
- * get orders
- */
+ * get orders */

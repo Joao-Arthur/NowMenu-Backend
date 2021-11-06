@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TableModule } from '../table/table.module';
 import { ItemModule } from '../item/items.module';
 import { UserModule } from '../user/user.module';
+import { OrderModule } from '../order/order.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -16,7 +17,8 @@ import { AppService } from './app.service';
         }),
         UserModule,
         ItemModule,
-        TableModule
+        TableModule,
+        OrderModule
     ],
     controllers: [AppController],
     providers: [AppService]

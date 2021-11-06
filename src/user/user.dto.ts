@@ -15,3 +15,7 @@ export class LoginUserDTO {
     email: string;
     password: string;
 }
+
+export class FindByIdDTO {
+    id: string;
+}

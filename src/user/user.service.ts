@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateUserDTO, LoginUserDTO } from './user.dto';
+import { CreateUserDTO, LoginUserDTO, FindByIdDTO } from './user.dto';
 import { User, UserDocument } from './user.entity';
 import { getHash, getSalt } from 'src/authorization/authorization';
 
@@ -38,8 +38,7 @@ export class UserService {
             hash: getHash({ salt, password }),
             salt
         });
-        await createdUser.save();
-        return { token: 'MOCK TOKEN' };
+        return await createdUser.save();
     }
 
     async login({ email, password }: LoginUserDTO) {
@@ -48,12 +47,16 @@ export class UserService {
             if (!user) throw new Error();
             if (user.hash !== getHash({ password, salt: user.salt }))
                 throw new Error();
-            return { token: 'MOCK TOKEN' };
+            return user;
         } catch {
             throw new HttpException(
                 'Usuário ou senha incorretos!',
                 HttpStatus.UNAUTHORIZED
             );
         }
+    }
+
+    async findById({ id }: FindByIdDTO) {
+        return await this.userModel.findById(id);
     }
 }

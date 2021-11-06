@@ -43,7 +43,7 @@ export class UserService {
 
     async login({ email, password }: LoginUserDTO) {
         try {
-            const user = await this.userModel.findOne({ email }).exec();
+            const user = await this.userModel.findOne({ email });
             if (!user) throw new Error();
             if (user.hash !== getHash({ password, salt: user.salt }))
                 throw new Error();

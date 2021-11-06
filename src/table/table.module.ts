@@ -11,6 +11,9 @@ import { AuthModule } from '../auth/auth.module';
         AuthModule
     ],
     controllers: [TableController],
-    providers: [TableService]
+    providers: [TableService],
+    exports: [
+        MongooseModule.forFeature([{ name: Table.name, schema: TableSchema }])
+    ]
 })
 export class TableModule {}

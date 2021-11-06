@@ -4,11 +4,13 @@ import { ItemController } from './item.controller';
 import { ItemService } from './item.service';
 import { Item, ItemSchema } from './item.entity';
 import { AuthModule } from '../auth/auth.module';
+import { TableModule } from '../table/table.module';
 
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: Item.name, schema: ItemSchema }]),
-        AuthModule
+        AuthModule,
+        TableModule
     ],
     controllers: [ItemController],
     providers: [ItemService]

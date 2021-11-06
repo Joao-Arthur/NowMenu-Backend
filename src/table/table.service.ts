@@ -36,7 +36,7 @@ export class TableService {
     }
 
     async getTables(payload: payloadType) {
-        return this.tableModel.find({ userId: payload.id });
+        return await this.tableModel.find({ userId: payload.id });
     }
 
     async getPDF({ res, userId, origin }: getPDFType) {

@@ -6,7 +6,9 @@ import {
     Headers,
     HttpCode,
     HttpStatus,
-    Get
+    Get,
+    Query,
+    HttpException
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDTO } from './item.dto';
@@ -33,5 +35,16 @@ export class ItemController {
     async getMenu(@Headers('authorization') authorization) {
         const payload = getJWTPayload(authorization);
         return await this.itemService.getMenu(payload);
+    }
+
+    @Get('restaurant')
+    async getRestaurantMenu(@Query('tableId') tableId: string) {
+        if (!tableId)
+            throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+        try {
+            return await this.itemService.getRestaurantMenu(tableId);
+        } catch {
+            throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+        }
     }
 }

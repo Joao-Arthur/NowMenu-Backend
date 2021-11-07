@@ -19,8 +19,10 @@ export class Order {
     @Prop([
         {
             itemId: String,
+            itemName: String,
             amount: Number,
-            observation: String
+            observation: String,
+            prepareTime: Number
         }
     ])
     items: item[];

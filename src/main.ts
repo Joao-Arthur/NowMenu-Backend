@@ -12,6 +12,6 @@ async function bootstrap() {
 bootstrap();
 
 /** TODO
- * delete tables
- * update tables
- * get orders */
+ * barra de pesquisa funcionando
+ * mascara nos inputs
+ */

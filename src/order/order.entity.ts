@@ -25,7 +25,8 @@ export class Order {
             itemName: String,
             amount: Number,
             observation: String,
-            prepareTime: Number
+            prepareTime: Number,
+            price: Number
         }
     ])
     items: item[];

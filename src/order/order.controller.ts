@@ -6,7 +6,8 @@ import {
     Headers,
     HttpCode,
     HttpStatus,
-    Get
+    Get,
+    Param
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDTO } from './order.dto';
@@ -28,5 +29,11 @@ export class OrderController {
     async getOrders(@Headers('authorization') authorization) {
         const payload = getJWTPayload(authorization);
         return await this.orderService.getOrders(payload);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    async getOrder(@Param() params) {
+        return await this.orderService.getOrder(params.id);
     }
 }

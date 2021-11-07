@@ -20,12 +20,18 @@ export class OrderService {
         const currentUser = await this.userModel.findById(currentTable.userId);
         const createdOrder = new this.orderModel({
             ...order,
-            userId: currentUser.id
+            userId: currentUser.id,
+            tableName: currentTable.name,
+            active: true
         });
         await createdOrder.save();
     }
 
     async getOrders(payload: payloadType) {
         return await this.orderModel.find({ userId: payload.id });
+    }
+
+    async getOrder(id: string) {
+        return await this.orderModel.findById(id);
     }
 }

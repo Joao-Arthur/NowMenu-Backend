@@ -7,6 +7,9 @@ export class Order {
     @Prop({ required: true })
     tableId: string;
 
+    @Prop()
+    tableName: string;
+
     @Prop({ required: true })
     userId: string;
 
@@ -26,6 +29,9 @@ export class Order {
         }
     ])
     items: item[];
+
+    @Prop()
+    active: boolean;
 }
 
 export type OrderDocument = Order & Document;

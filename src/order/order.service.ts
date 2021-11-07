@@ -2,24 +2,25 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { payloadType } from '../auth/getJWTPayload';
+import { User, UserDocument } from '../user/user.entity';
+import { Table, TableDocument } from '../table/table.entity';
 import { CreateOrderDTO } from './order.dto';
 import { Order, OrderDocument } from './order.entity';
-
-type createOrderType = {
-    order: CreateOrderDTO;
-    payload: payloadType;
-};
 
 @Injectable()
 export class OrderService {
     constructor(
-        @InjectModel(Order.name) private orderModel: Model<OrderDocument>
+        @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+        @InjectModel(User.name) private userModel: Model<UserDocument>,
+        @InjectModel(Table.name) private tableModel: Model<TableDocument>
     ) {}
 
-    async createOrder({ order, payload }: createOrderType) {
+    async createOrder(order: CreateOrderDTO) {
+        const currentTable = await this.tableModel.findById(order.tableId);
+        const currentUser = await this.userModel.findById(currentTable.userId);
         const createdOrder = new this.orderModel({
             ...order,
-            userId: payload.id
+            userId: currentUser.id
         });
         await createdOrder.save();
     }

@@ -17,15 +17,10 @@ import { getJWTPayload } from '../auth/getJWTPayload';
 export class OrderController {
     constructor(private readonly orderService: OrderService) {}
 
-    @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
     @Post()
-    async createOrder(
-        @Body() order: CreateOrderDTO,
-        @Headers('authorization') authorization
-    ) {
-        const payload = getJWTPayload(authorization);
-        await this.orderService.createOrder({ order, payload });
+    async createOrder(@Body() order: CreateOrderDTO) {
+        await this.orderService.createOrder(order);
     }
 
     @UseGuards(JwtAuthGuard)

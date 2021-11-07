@@ -10,8 +10,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-
-/** TODO
- * barra de pesquisa funcionando
- * mascara nos inputs
- */

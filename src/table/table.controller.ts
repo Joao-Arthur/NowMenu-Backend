@@ -10,7 +10,9 @@ import {
     Header,
     Response,
     Query,
-    HttpException
+    HttpException,
+    Delete,
+    Param
 } from '@nestjs/common';
 import { Response as ExpressResponse } from 'express';
 import { TableService } from './table.service';
@@ -38,6 +40,13 @@ export class TableController {
     async getTables(@Headers('authorization') authorization) {
         const payload = getJWTPayload(authorization);
         return await this.tableService.getTables(payload);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @Delete(':id')
+    async deleteTable(@Param() params) {
+        return await this.tableService.deleteTable(params.id);
     }
 
     @Header('content-type', 'application/pdf')

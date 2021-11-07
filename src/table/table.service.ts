@@ -39,6 +39,10 @@ export class TableService {
         return await this.tableModel.find({ userId: payload.id });
     }
 
+    async deleteTable(id: string) {
+        return await this.tableModel.findByIdAndDelete(id);
+    }
+
     async getPDF({ res, userId, origin }: getPDFType) {
         const userTables = await this.tableModel.find({
             userId

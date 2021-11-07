@@ -28,10 +28,14 @@ export class OrderService {
     }
 
     async getOrders(payload: payloadType) {
-        return await this.orderModel.find({ userId: payload.id });
+        return await this.orderModel.find({ userId: payload.id, active: true });
     }
 
     async getOrder(id: string) {
         return await this.orderModel.findById(id);
+    }
+
+    async setDone(id: string) {
+        await this.orderModel.findByIdAndUpdate(id, { active: false });
     }
 }

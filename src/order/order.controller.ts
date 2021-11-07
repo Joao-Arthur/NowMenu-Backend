@@ -7,7 +7,8 @@ import {
     HttpCode,
     HttpStatus,
     Get,
-    Param
+    Param,
+    Patch
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDTO } from './order.dto';
@@ -35,5 +36,12 @@ export class OrderController {
     @Get(':id')
     async getOrder(@Param() params) {
         return await this.orderService.getOrder(params.id);
+    }
+
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @UseGuards(JwtAuthGuard)
+    @Patch(':id')
+    async setDone(@Param() params) {
+        await this.orderService.setDone(params.id);
     }
 }

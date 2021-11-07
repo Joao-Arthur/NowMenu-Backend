@@ -4,9 +4,10 @@ import {
     Body,
     Get,
     UseGuards,
-    Param,
     Patch,
-    Headers
+    Headers,
+    HttpCode,
+    HttpStatus
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from './user.dto';
@@ -23,8 +24,9 @@ export class UserController {
 
     @UseGuards(JwtAuthGuard)
     @Get()
-    async getUserInfo(@Param() params) {
-        return this.userService.getUserInfo(params.id);
+    async getUserInfo(@Headers('authorization') authorization) {
+        const payload = getJWTPayload(authorization);
+        return this.userService.getUserInfo(payload.id);
     }
 
     @Post()
@@ -39,6 +41,7 @@ export class UserController {
         return this.authService.login(foundUser);
     }
 
+    @HttpCode(HttpStatus.NO_CONTENT)
     @UseGuards(JwtAuthGuard)
     @Patch()
     async updateUserInfo(

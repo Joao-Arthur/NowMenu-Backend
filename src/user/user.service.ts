@@ -57,7 +57,28 @@ export class UserService {
     }
 
     async getUserInfo(id: string) {
-        return await this.userModel.findById(id);
+        const {
+            cnpj,
+            name,
+            telephone,
+            cep,
+            address,
+            district,
+            city,
+            state,
+            email
+        } = await this.userModel.findById(id);
+        return {
+            cnpj,
+            name,
+            telephone,
+            cep,
+            address,
+            district,
+            city,
+            state,
+            email
+        };
     }
 
     async updateUserInfo(user: UpdateUserDTO, id: string) {

@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateUserDTO, LoginUserDTO, FindByIdDTO } from './user.dto';
+import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from './user.dto';
 import { User, UserDocument } from './user.entity';
 import { getHash, getSalt } from 'src/authorization/authorization';
 
@@ -56,7 +56,11 @@ export class UserService {
         }
     }
 
-    async findById({ id }: FindByIdDTO) {
+    async getUserInfo(id: string) {
         return await this.userModel.findById(id);
+    }
+
+    async updateUserInfo(user: UpdateUserDTO, id: string) {
+        await this.userModel.findByIdAndUpdate(id, user);
     }
 }

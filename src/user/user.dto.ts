@@ -16,6 +16,15 @@ export class LoginUserDTO {
     password: string;
 }
 
-export class FindByIdDTO {
-    id: string;
+export class UpdateUserDTO {
+    cnpj: string;
+    name: string;
+    telephone: string;
+    cep: string;
+    address: string;
+    district: string;
+    city: string;
+    state: string;
+    email: string;
+    password: string;
 }

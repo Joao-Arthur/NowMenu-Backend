@@ -5,6 +5,7 @@ import { payloadType } from '../auth/getJWTPayload';
 import { CreateItemDTO } from './item.dto';
 import { Item, ItemDocument } from './item.entity';
 import { Table, TableDocument } from '../table/table.entity';
+import { User, UserDocument } from '../user/user.entity';
 
 type createMenuType = {
     items: CreateItemDTO[];
@@ -15,7 +16,8 @@ type createMenuType = {
 export class ItemService {
     constructor(
         @InjectModel(Item.name) private itemModel: Model<ItemDocument>,
-        @InjectModel(Table.name) private tableModel: Model<TableDocument>
+        @InjectModel(Table.name) private tableModel: Model<TableDocument>,
+        @InjectModel(User.name) private userModel: Model<UserDocument>
     ) {}
 
     async createMenu({ items, payload }: createMenuType) {
@@ -35,6 +37,23 @@ export class ItemService {
     async getRestaurantMenu(tableId: string) {
         const currentTable = await this.tableModel.findById(tableId);
         if (!currentTable) throw new Error('Table not found');
-        return this.itemModel.find({ userId: currentTable.userId });
+        const items = await this.itemModel.find({
+            userId: currentTable.userId
+        });
+        const { name, telephone, cep, address, district, city, state, email } =
+            await this.userModel.findById(currentTable.userId);
+        return {
+            items,
+            restaurant: {
+                name,
+                telephone,
+                cep,
+                address,
+                district,
+                city,
+                state,
+                email
+            }
+        };
     }
 }

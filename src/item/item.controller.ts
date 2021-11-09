@@ -8,7 +8,8 @@ import {
     HttpStatus,
     Get,
     HttpException,
-    Param
+    Param,
+    Delete
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDTO } from './item.dto';
@@ -46,5 +47,12 @@ export class ItemController {
         } catch (e) {
             throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @Delete(':id')
+    async deleteItem(@Param() params) {
+        await this.itemService.deleteItem(params.id);
     }
 }

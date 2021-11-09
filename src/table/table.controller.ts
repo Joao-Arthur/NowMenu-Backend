@@ -46,7 +46,7 @@ export class TableController {
     @HttpCode(HttpStatus.NO_CONTENT)
     @Delete(':id')
     async deleteTable(@Param() params) {
-        return await this.tableService.deleteTable(params.id);
+        await this.tableService.deleteTable(params.id);
     }
 
     @Header('content-type', 'application/pdf')

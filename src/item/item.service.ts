@@ -56,4 +56,8 @@ export class ItemService {
             }
         };
     }
+
+    async deleteItem(id: string) {
+        return await this.itemModel.findByIdAndDelete(id);
+    }
 }

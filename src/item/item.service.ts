@@ -17,6 +17,13 @@ type createItemType = {
     payload: payloadType;
 };
 
+type updateItemType = {
+    name: string;
+    description: string;
+    prepareTime: number;
+    price: number;
+};
+
 @Injectable()
 export class ItemService {
     constructor(
@@ -72,5 +79,13 @@ export class ItemService {
 
     async deleteItem(id: string) {
         return await this.itemModel.findByIdAndDelete(id);
+    }
+
+    async getItem(id: string) {
+        return await this.itemModel.findById(id);
+    }
+
+    async updateItem(id: string, itemToUpdate: updateItemType) {
+        return await this.itemModel.findByIdAndUpdate(id, itemToUpdate);
     }
 }

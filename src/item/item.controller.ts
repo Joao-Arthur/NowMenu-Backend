@@ -22,13 +22,24 @@ export class ItemController {
 
     @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
-    @Post()
+    @Post('menu')
     async createMenu(
         @Body() items: CreateItemDTO[],
         @Headers('authorization') authorization
     ) {
         const payload = getJWTPayload(authorization);
         await this.itemService.createMenu({ items, payload });
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @HttpCode(HttpStatus.NO_CONTENT)
+    @Post()
+    async createItem(
+        @Body() item: CreateItemDTO,
+        @Headers('authorization') authorization
+    ) {
+        const payload = getJWTPayload(authorization);
+        await this.itemService.createItem({ item, payload });
     }
 
     @UseGuards(JwtAuthGuard)

@@ -12,6 +12,11 @@ type createMenuType = {
     payload: payloadType;
 };
 
+type createItemType = {
+    item: CreateItemDTO;
+    payload: payloadType;
+};
+
 @Injectable()
 export class ItemService {
     constructor(
@@ -28,6 +33,14 @@ export class ItemService {
             });
             await createdItem.save();
         }
+    }
+
+    async createItem({ item, payload }: createItemType) {
+        const createdItem = new this.itemModel({
+            ...item,
+            userId: payload.id
+        });
+        await createdItem.save();
     }
 
     async getMenu(payload: payloadType) {

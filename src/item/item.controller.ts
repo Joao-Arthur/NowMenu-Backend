@@ -7,8 +7,8 @@ import {
     HttpCode,
     HttpStatus,
     Get,
-    Query,
-    HttpException
+    HttpException,
+    Param
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDTO } from './item.dto';
@@ -37,13 +37,13 @@ export class ItemController {
         return await this.itemService.getMenu(payload);
     }
 
-    @Get('restaurant')
-    async getRestaurantMenu(@Query('tableId') tableId: string) {
-        if (!tableId)
+    @Get(':tableId')
+    async getRestaurantMenu(@Param() params) {
+        if (!params.tableId)
             throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
         try {
-            return await this.itemService.getRestaurantMenu(tableId);
-        } catch {
+            return await this.itemService.getRestaurantMenu(params.tableId);
+        } catch (e) {
             throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
         }
     }

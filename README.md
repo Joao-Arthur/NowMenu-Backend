@@ -1,4 +1,18 @@
-# Faculdade-NowMenu-Backend
+# NowMenu-Backend
 ## Sobre o projeto
 
-Trabalho da disciplina de Projeto Integrador 2 do curso de ciências da computação em 2021, desenvolvido em _Nest JS_ e _MongoDB_.
+Backend do projeto de cardápio digital desenvolvido em _NestJS_ e _MongoDB_.
+
+## Casos de uso para o restaurante
+
+☑️ CRUD de Restaurantes
+☑️ CRUD de mesas do restaurante
+☑️ Gerar PDF com QRCode para cada mesa
+☑️ CRUD do cardápio
+☑️ Listagem dos pedidos
+☑️ Marcar pedidos como feito
+
+## Casos de uso para o cliente
+
+☑️ Listagem do cardápio
+☑️ CRUD de pedidos
